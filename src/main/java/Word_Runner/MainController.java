@@ -12,15 +12,25 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.lang.Math;
 import java.io.IOException;
+import javafx.stage.FileChooser;
 
 import static Word_Runner.logic.elapsedSeconds;
 
 
 public class MainController {
+    @FXML
+    private VBox Buttonvbox;
+    @FXML
+    private Button uploadFileButton;
+    @FXML
+    private Text fileUploadLabel;
     @FXML
     private Text text;
     @FXML
@@ -41,6 +51,7 @@ public class MainController {
     private Scene mainscene;
     private static String textF = "Nothing";
     private static int currentIndex = 0;
+    private static boolean fileSelected = false;
     public static void main(String[] args){
     }
 
@@ -90,7 +101,9 @@ public class MainController {
 
     //method here gets needed stage, scene and node and loads the main scene
     public void TextInputToMain(ActionEvent e) throws IOException {
-        textF = textInput.getText();
+        if(!fileSelected){
+            textF = textInput.getText();
+        }
         System.out.println(textF);
         FXMLLoader fxmlloader = new FXMLLoader(MainController.class.getResource("main.fxml"));
         Parent root = fxmlloader.load();
@@ -99,6 +112,39 @@ public class MainController {
         stage.setScene(mainscene);
         stage.show();
 
+    }
+
+    public void MaintoTextInput(ActionEvent e) throws Exception {
+        FXMLLoader fxmlloader = new FXMLLoader(MainController.class.getResource("textInput.fxml"));
+        Parent root = fxmlloader.load();
+        stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+        mainscene = new Scene(root);
+        stage.setScene(mainscene);
+        stage.show();
+        fileSelected = true;
+    }
+
+    //this method is triggered when button is pressed (actionevent e). It opens filechooser and lets user select the file.After it is selected the button should still stay
+    public void clickFileChoose(ActionEvent e) throws Exception{
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select the file");
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        VBox vbox = new VBox(uploadFileButton);
+        Scene scene = new Scene(vbox,960,960);
+        if(selectedFile != null){
+            textF = TextProcessing.filetoString(selectedFile);
+            if(textF != null){
+                fileSelected = true;
+                fileUploadLabel.setText(selectedFile.getName() + " selected");
+            }
+            else{
+                fileUploadLabel.setText("Invalid file type");
+            }
+        }
+        else{
+
+            fileUploadLabel.setText("File not Selected");
+        }
     }
 
 

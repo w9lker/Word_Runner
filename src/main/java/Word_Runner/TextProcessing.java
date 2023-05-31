@@ -1,6 +1,14 @@
 package Word_Runner;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.Math;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+
 public class TextProcessing {
 
     public static String[] Splitter(String text){
@@ -40,6 +48,25 @@ public class TextProcessing {
         return speedmap;
   }
 
+  public static String filetoString(File file) throws IOException {
+        Path path = Path.of(file.getPath());
+        String filename = file.getName();
+        String extension = filename.substring(filename.lastIndexOf("."),filename.length());
+        System.out.println(extension);
+        if(extension.equals(".txt")){
+            System.out.println("Entered");
+            return Files.readString(path);
+        }
+        else if(extension.equals(".docx")){
+            XWPFDocument docx = new XWPFDocument(new FileInputStream(file));
+            XWPFWordExtractor extractor = new XWPFWordExtractor(docx);
+            return extractor.getText();
+        }
+        else{
+            return null;
+        }
+  }
+
     public static void main(String[] args) {
         String example = "Doubling the number of U.S. exhibitors participating in HOFEX 2021, the USA Pavilion showcases a wide variety of sustainable food and beverage offerings including Alaskan seafood, Oregon Hazelnuts, Wisconsin Ginseng, Virginian specialty beverages, condiments and sauces, pecans, tart cherries, as well as wide range of products from the Southern and Western regions of the United States.  The USA Pavilion’s #DeliciousUSA kitchen will feature ongoing cooking demonstrations highlighting the versatility of these products with local Chef Andy Dark.\n" +
                 "\n" +
@@ -53,5 +80,6 @@ public class TextProcessing {
 
         }
     }
+
 
 }

@@ -16,11 +16,12 @@
             <Font name="Comic Sans MS" size="53.0" />
          </font>
       </Text>
-      <Button fx:id="button" layoutX="262.0" layoutY="331.0" mnemonicParsing="false" onAction="#changeText" prefHeight="44.0" prefWidth="82.0" text="Start" />
+      <Button fx:id="button" layoutX="262.0" layoutY="332.0" mnemonicParsing="false" onAction="#changeText" prefHeight="44.0" prefWidth="82.0" text="Start" />
       <Button fx:id="pause" disable="true" layoutX="262.0" layoutY="330.0" mnemonicParsing="false" onAction="#PausePressed" prefHeight="44.0" prefWidth="82.0" text="Pause" visible="false" />
       <Button fx:id="resume" disable="true" layoutX="262.0" layoutY="331.0" mnemonicParsing="false" onAction="#ResumePressed" prefHeight="44.0" prefWidth="82.0" text="Resume" visible="false" />
-      <Button fx:id="backW" layoutX="86.0" layoutY="331.0" mnemonicParsing="false" onAction="#GoBack" prefHeight="44.0" prefWidth="82.0" text="Back" />
-      <Button fx:id="NextW" layoutX="437.0" layoutY="330.0" mnemonicParsing="false" onAction="#GoNext" prefHeight="44.0" prefWidth="82.0" text="Next" />
+      <Button fx:id="backW" layoutX="51.0" layoutY="332.0" mnemonicParsing="false" onAction="#GoBack" prefHeight="44.0" prefWidth="162.0" text="Backward (10 words)" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" />
+      <Button fx:id="NextW" layoutX="394.0" layoutY="332.0" mnemonicParsing="false" onAction="#GoNext" prefHeight="44.0" prefWidth="154.0" text="Forward (10 words)" />
       <ProgressBar fx:id="progressbar" layoutX="207.0" layoutY="33.0" prefWidth="200.0" progress="0.0" />
+      <Button layoutX="14.0" layoutY="28.0" mnemonicParsing="false" onAction="#MaintoTextInput" text="Return" />
    </children>
 </AnchorPane>
